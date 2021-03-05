@@ -9,16 +9,89 @@
 <body>
     <h1>JSON</h1>
     <h6 onclick="jsoncall()">declear a object and convert to JSON file </h6>
+    <ul id = 'userList'>
 
+    </ul>
+<!-- form for server entry -->
+
+    <form>
+        <fieldset>
+            <legend>Enter your info</legend>
+            <!-- <input id='id' type="text" placeholder="Enter your ID"></br></br> -->
+            <input id='name' type="text" placeholder="Enter your name"></br></br>
+            <input id='age' type="text" placeholder="Enter your age"></br></br>
+            <input id='phone' type="text" placeholder="Enter your phone number"></br></br>
+            <!-- <input id='fatherName' type="text" placeholder="Enter your Father name"></br></br>
+            <input id='motherName' type="text" placeholder="Enter your mother name"> </br></br> -->
+            <button type="submit" id= 'submit'>Submit</button>
+        </fieldset>
+
+    </form>
     <script>
-        function jsoncall(){
-            const newCustomer ={ name : "alif", age : 21, id:343, address : "segunbagica"};
-            console.log('With out json '+ newCustomer['name']);
-            const customer = JSON.stringify(newCustomer);
-            console.log('after make json '+ customer);
-            const remake = JSON.parse(customer);
-            console.log('Remake js object '+ remake);
-        };
+        // function jsoncall(){
+        //     const newCustomer ={ name : "alif", age : 21, id:343, address : "segunbagica"};
+        //     console.log('With out json '+ newCustomer['name']);
+        //     const customer = JSON.stringify(newCustomer);
+        //     console.log('after make json '+ customer);
+        //     const remake = JSON.parse(customer);
+        //     console.log('Remake js object '+ remake);
+        // };
+
+        // fetch('https://jsonplaceholder.typicode.com/users')
+        // .then(response => response.json())
+        // .then(json => displayUser(json))
+        // .catch(error => console.log(error))
+
+        // function displayUser(user){
+        //     let oneByOne = user.map(usr=>{
+        //         const creatLi = document.createElement('li');
+        //         creatLi.innerText= usr['name'];
+        //         document.getElementById('userList').appendChild(creatLi);
+
+        //     }); 
+
+
+
+            // let oneByOne ={};
+            // let name ='';
+            // for (let i =0; i< user.length; i++){
+            //     oneByOne = user[i];
+            //     name = oneByOne['name'];
+            //     const newli = document.createElement('li');
+            //     const nameNode = document.createTextNode(name);
+            //     newli.appendChild(nameNode);
+            //     document.getElementById('userList').appendChild(newli);
+            // };
+        // };
+//get input and post in json file 
+        // const name = document.getElementById('name').value;
+        // const age = document.getElementById('age').value;
+        // const phone = document.getElementById('phone').value;
+        // const fatherName = document.getElementById('fatherName').value;
+        // const motherName = document.getElementById('motherName').value;
+        // const personalInfo = {name:name, age:age, phone:phone, fatherName:fatherName, motherName : motherName};
+        // console.log(personalInfo);
+
+        function postOnServer(Info){
+            fetch('https://jsonplaceholder.typicode.com/posts', {
+                method: 'POST',
+                body: JSON.stringify(Info),
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                },
+                 })
+                .then((response) => response.json())
+                .then((data) => console.log(data));
+            };
+        document.getElementById('submit').addEventListener("click", function(){
+            // const id = document.getElementById('id').value;
+            const name = document.getElementById('name').value;
+            const age = document.getElementById('age').value;
+            const UserId = document.getElementById('phone').value;
+            const postElement = {title:name, body: age, userId:UserId};
+            postOnServer(postElement);
+            console.log(JSON.stringify(postElement));
+        });
     </script>
 </body>
 </html>
